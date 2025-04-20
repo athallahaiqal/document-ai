@@ -20,6 +20,8 @@ The app is fully local — no API keys or cloud model usage required.
   * [Run application](#run-application)
     * [Development mode](#development-mode)
     * [Production mode](#production-mode)
+  * [Linting](#linting)
+  * [Formatting](#formatting)
 <!-- TOC -->
 
 ## ⚡ Features
@@ -98,4 +100,16 @@ uv run fastapi dev app/main.py
 
 ```bash
 uv run fastapi run app/main.py
+```
+
+## Linting
+
+```bash
+ruff check app/* tests/*
+```
+
+## Formatting
+
+```bash
+ruff format app/* tests/*
 ```

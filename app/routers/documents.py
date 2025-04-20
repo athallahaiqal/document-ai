@@ -41,8 +41,9 @@ def summarize_text(model_name: str, text: str) -> str:
 
 
 @router.post("/")
-async def upload_document(db: Session = Depends(database.get_db),
-                          file: UploadFile = File(...)):
+async def upload_document(
+    db: Session = Depends(database.get_db), file: UploadFile = File(...)
+):
     """Upload a document and summarise it.
 
     :param db: Database session
@@ -96,11 +97,12 @@ class AskQuestionInput(BaseModel):
 
 
 @router.post("/{document_id}/question")
-async def ask_question(settings: Annotated[config.Settings, Depends(get_settings)],
-                       document_id: int,
-                       ask_question_input: AskQuestionInput,
-                       db: Session = Depends(database.get_db),
-                       ) -> AskQuestionOutput:
+async def ask_question(
+    settings: Annotated[config.Settings, Depends(get_settings)],
+    document_id: int,
+    ask_question_input: AskQuestionInput,
+    db: Session = Depends(database.get_db),
+) -> AskQuestionOutput:
     """
     Ask a question about an uploaded document.
 
@@ -120,7 +122,9 @@ async def ask_question(settings: Annotated[config.Settings, Depends(get_settings
             )
 
         # Answer the question based on the document
-        answer = answer_question(settings.model_name, ask_question_input.question, document.text_content)
+        answer = answer_question(
+            settings.model_name, ask_question_input.question, document.text_content
+        )
         return AskQuestionOutput(answer=answer)
 
     except Exception as e:
@@ -131,9 +135,11 @@ async def ask_question(settings: Annotated[config.Settings, Depends(get_settings
 
 
 @router.get("/{document_id}/summarise")
-async def summarise(settings: Annotated[config.Settings, Depends(get_settings)],
-                    document_id: int,
-                    db: Session = Depends(database.get_db)) -> SummaryOutput:
+async def summarise(
+    settings: Annotated[config.Settings, Depends(get_settings)],
+    document_id: int,
+    db: Session = Depends(database.get_db),
+) -> SummaryOutput:
     """Summarise an uploaded document.
 
     :param settings: Settings object
