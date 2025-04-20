@@ -16,7 +16,7 @@ The app is fully local — no API keys or cloud model usage required.
     * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
     * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
     * [4. Run `llama3.2` locally using Ollama)](#4-run-llama32-locally-using-ollama)
-    * [5. Run PostgreSQL and perform migrations`](#5-run-postgresql-and-perform-migrations)
+    * [5. Run PostgreSQL and perform migrations](#5-run-postgresql-and-perform-migrations)
   * [Run application](#run-application)
     * [Development mode](#development-mode)
     * [Production mode](#production-mode)
@@ -73,7 +73,7 @@ DATABASE_PORT=5432
 ollama run llama3.2
 ```
 
-### 5. Run PostgreSQL and perform migrations`
+### 5. Run PostgreSQL and perform migrations
 
 ```bash
 docker compose up -d
