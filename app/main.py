@@ -1,17 +1,21 @@
 import io
+from typing import Annotated
 
 import PyPDF2
 import docx
 import ollama
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Depends
 from pydantic import BaseModel
+
+from app import config
+from app.config import get_settings
 
 app = FastAPI()
 
 
-# Function to read PDF file
 def read_pdf(file_bytes: bytes) -> str:
-    """Read a PDF file
+    """Read a PDF file.
+
     :param file_bytes: The file to read
     :return:
     """
@@ -23,9 +27,9 @@ def read_pdf(file_bytes: bytes) -> str:
     return text
 
 
-# Function to read DOCX file
 def read_docx(file):
-    """Read a docx file
+    """Read a docx file.
+
     :param file:
     :return:
     """
@@ -36,27 +40,30 @@ def read_docx(file):
     return text
 
 
-def summarize_text(text: str) -> str:
-    """Summarise the text and return it
-    :param text:
+def summarize_text(model_name: str, text: str) -> str:
+    """Summarise the text and return it.
+    :param model_name: The model name running locally on Ollama
+    :param text: The text to summarise
     :return:
     """
     prompt = f"Summarize the following text:\n\n{text}"
     response = ollama.chat(
-        model="llama3.2", messages=[{"role": "user", "content": prompt}]
+        model=model_name, messages=[{"role": "user", "content": prompt}]
     )
     return response.message.content
 
 
-def answer_question(question: str, document_text: str) -> str:
+def answer_question(model_name: str, question: str, document_text: str) -> str:
     """Answer a question based on the provided file.
+
+    :param model_name: The model name running locally on Ollama
     :param question: Free flow question
     :param document_text: Document text
     :return:
     """
     prompt = f"Answer the following question based on the document: {document_text}\n\nQuestion: {question}\nAnswer:"
     response = ollama.chat(
-        model="llama3.2", messages=[{"role": "user", "content": prompt}]
+        model=model_name, messages=[{"role": "user", "content": prompt}]
     )
     return response.message.content
 
@@ -66,9 +73,12 @@ class SummaryOutput(BaseModel):
 
 
 @app.post("/upload/")
-async def upload_file(file: UploadFile = File(...)) -> SummaryOutput:
-    """Upload a file
-    :param file
+async def upload_file(settings: Annotated[config.Settings, Depends(get_settings)],
+                      file: UploadFile = File(...)) -> SummaryOutput:
+    """Upload a file and summarise it.
+
+    :param settings: Settings object
+    :param file: The file to be uploaded
     :return:
     """
     try:
@@ -84,7 +94,7 @@ async def upload_file(file: UploadFile = File(...)) -> SummaryOutput:
                 detail=f"Unsupported file type: {file.filename}. Only PDF and DOCX are supported.",
             )
         # Summarize the document
-        summary = summarize_text(text)
+        summary = summarize_text(settings.model_name, text)
         return SummaryOutput(summary=summary)
 
     except Exception as e:
@@ -99,9 +109,17 @@ class AnswerOutput(BaseModel):
 
 
 @app.post("/ask/")
-async def ask_question(
-        question: str = Form(...), file: UploadFile = File(...)
-) -> AnswerOutput:
+async def ask_question(settings: Annotated[config.Settings, Depends(get_settings)],
+                       question: str = Form(...), file: UploadFile = File(...)
+                       ) -> AnswerOutput:
+    """
+    Ask a question about the uploaded document.
+
+    :param question: Free text question
+    :param settings: Settings object
+    :param file: The file to be uploaded
+    :return
+    """
     try:
         if file.filename.endswith(".pdf"):
             file_contents = await file.read()
@@ -116,7 +134,7 @@ async def ask_question(
             )
 
         # Answer the question based on the document
-        answer = answer_question(question, text)
+        answer = answer_question(settings.model_name, question, text)
         return AnswerOutput(answer=answer)
 
     except Exception as e:

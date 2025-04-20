@@ -8,22 +8,24 @@ This is a simple FastAPI application that allows users to:
 
 The app is fully local — no API keys or cloud model usage required.
 
-- [📄 LLM-Powered Document Summarizer \& Q\&A API](#-llm-powered-document-summarizer--qa-api)
-  - [⚡ Features](#-features)
-  - [🚀 Quick Start](#-quick-start)
-    - [1. Install Python 3 and uv](#1-install-python-3-and-uv)
-    - [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
-  - [Run application](#run-application)
-    - [Development mode](#development-mode)
-    - [Production mode](#production-mode)
-  - [🔌 API Endpoints](#-api-endpoints)
-    - [📄 `POST /upload/` — **Summarize a document**](#-post-upload--summarize-a-document)
-      - [✅ Request](#-request)
-      - [🤖 Response](#-response)
-    - [❓ `POST /ask/` — **Ask a question about a document**](#-post-ask--ask-a-question-about-a-document)
-      - [🤖 Response](#-response-1)
-
----
+<!-- TOC -->
+* [📄 document-ai](#-document-ai)
+  * [⚡ Features](#-features)
+  * [🚀 Quick Start](#-quick-start)
+    * [1. Install Python 3, uv and ollama](#1-install-python-3-uv-and-ollama)
+    * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
+    * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
+  * [Run application](#run-application)
+    * [Development mode](#development-mode)
+    * [Production mode](#production-mode)
+    * [3. Run ollama locally using `llama3.2`](#3-run-ollama-locally-using-llama32)
+  * [🔌 API Endpoints](#-api-endpoints)
+    * [📄 `POST /upload/` — **Summarize a document**](#-post-upload--summarize-a-document)
+      * [✅ Request](#-request)
+      * [🤖 Response](#-response)
+    * [❓ `POST /ask/` — **Ask a question about a document**](#-post-ask--ask-a-question-about-a-document)
+      * [🤖 Response](#-response-1)
+<!-- TOC -->
 
 ## ⚡ Features
 
@@ -62,18 +64,25 @@ From the root of the project execute:
 uv sync
 ```
 
+### 3. Create a `.env` file at the root of the project
+
+```dotenv
+# Model name running locally on Ollama
+MODEL_NAME=llama3.2
+```
+
 ## Run application
 
 ### Development mode
 
 ```bash
-uv run fastapi dev
+uv run fastapi dev app/main.py
 ```
 
 ### Production mode
 
 ```bash
-uv run fastapi run
+uv run fastapi run app/main.py
 ```
 
 ### 3. Run ollama locally using `llama3.2`
@@ -81,7 +90,6 @@ uv run fastapi run
 ```bash
 ollama run llama3.2
 ```
-
 
 ## 🔌 API Endpoints
 
@@ -95,7 +103,7 @@ Uploads a PDF or DOCX file and returns a summarized version of its contents usin
 - **URL:** `/upload/`
 - **Content-Type:** `multipart/form-data`
 - **Form Fields:**
-  - `file`: PDF or DOCX file
+    - `file`: PDF or DOCX file
 
 #### 🤖 Response
 
@@ -107,16 +115,17 @@ Uploads a PDF or DOCX file and returns a summarized version of its contents usin
 
 ### ❓ `POST /ask/` — **Ask a question about a document**
 
-Uploads a PDF or DOCX file along with a natural language question. The local LLM will generate an answer based on the file’s contents.
+Uploads a PDF or DOCX file along with a natural language question. The local LLM will generate an answer based on the
+file’s contents.
 
 ✅ Request
 
 - **Method:** `POST`
-- **URL:** `/upload/`
+- **URL:** `/ask/`
 - **Content-Type:** `multipart/form-data`
 - **Form Fields:**
-  - `file`: PDF or DOCX file
-  - `question`: Your question as plain text
+    - `file`: PDF or DOCX file
+    - `question`: Your question as plain text
 
 #### 🤖 Response
 
