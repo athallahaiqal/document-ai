@@ -1,4 +1,4 @@
-# 📄 LLM-Powered Document Summarizer & Q&A API
+# 📄 document-ai
 
 This is a simple FastAPI application that allows users to:
 
