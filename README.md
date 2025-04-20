@@ -67,8 +67,15 @@ uv sync
 ### 3. Create a `.env` file at the root of the project
 
 ```dotenv
-# Model name running locally on Ollama
+# Ollama
 MODEL_NAME=llama3.2
+
+# Database
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=postgres
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
 ```
 
 ## Run application
