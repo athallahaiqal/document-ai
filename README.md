@@ -40,9 +40,12 @@ future iterations to support larger document sets and improve accuracy at scale.
 
 - 🔍 **Summarization** of uploaded documents using local LLMs (like LLaMA3, Mistral, etc.)
 - 🤖 **Context-aware Q&A** on document content
-- 🛡️ Type-safe response models using `pydantic`
-- 📂 Supports `.pdf` and `.docx` files
-- 🔧 Easily swappable LLM backend (via Ollama)
+- 🛡️ Type-safe response models using pydantic
+- 📂 Supports `.pdf` and `.docx` file uploads
+- 🔧 Easily swappable LLM backend (via [Ollama](https://ollama.com/))
+- 🛠️ **Database integration** with [SQLAlchemy](https://www.sqlalchemy.org/)
+  and [Alembic](https://alembic.sqlalchemy.org/) for migrations
+- 🧹 **Code linting and formatting** with [Ruff](https://docs.astral.sh/ruff/)
 
 ---
 
