@@ -26,7 +26,7 @@ The app is fully local — no API keys or cloud model usage required.
 
 ## ⚡ Features
 
-- 🔍 **Summarization** of uploaded documents using LLMs (like LLaMA3, Mistral, etc.)
+- 🔍 **Summarization** of uploaded documents using local LLMs (like LLaMA3, Mistral, etc.)
 - 🤖 **Context-aware Q&A** on document content
 - 🛡️ Type-safe response models using `pydantic`
 - 📂 Supports `.pdf` and `.docx` files
