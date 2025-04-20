@@ -12,7 +12,7 @@ The app is fully local — no API keys or cloud model usage required.
 * [📄 document-ai](#-document-ai)
   * [⚡ Features](#-features)
   * [🚀 Quick Start](#-quick-start)
-    * [1. Install Python 3, uv and ollama](#1-install-python-3-uv-and-ollama)
+    * [1. Install Python 3, uv, Docker and Ollama](#1-install-python-3-uv-docker-and-ollama)
     * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
     * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
     * [4. Run `llama3.2` locally using Ollama)](#4-run-llama32-locally-using-ollama)
@@ -36,21 +36,13 @@ The app is fully local — no API keys or cloud model usage required.
 
 ## 🚀 Quick Start
 
-### 1. Install Python 3, uv and ollama
+### 1. Install Python 3, uv, Docker and Ollama
 
 **MacOS (using `brew`)**
 
 ```bash
-brew install python@3.13 uv ollama
-```
-
-**Ubuntu/Debian**
-
-```bash
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install python3.13
-curl -LsSf https://astral.sh/uv/install.sh | sh
+brew install python@3.13 uv
+brew install --cask docker ollama
 ```
 
 ### 2. Create a virtual environment with all necessary dependencies
