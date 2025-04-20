@@ -8,3 +8,11 @@ DATABASE_URL = (f"postgresql+psycopg://{get_settings().database_user}:{get_setti
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

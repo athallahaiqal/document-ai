@@ -15,16 +15,11 @@ The app is fully local — no API keys or cloud model usage required.
     * [1. Install Python 3, uv and ollama](#1-install-python-3-uv-and-ollama)
     * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
     * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
+    * [4. Run `llama3.2` locally using Ollama)](#4-run-llama32-locally-using-ollama)
+    * [5. Run PostgreSQL and perform migrations`](#5-run-postgresql-and-perform-migrations)
   * [Run application](#run-application)
     * [Development mode](#development-mode)
     * [Production mode](#production-mode)
-    * [3. Run ollama locally using `llama3.2`](#3-run-ollama-locally-using-llama32)
-  * [🔌 API Endpoints](#-api-endpoints)
-    * [📄 `POST /upload/` — **Summarize a document**](#-post-upload--summarize-a-document)
-      * [✅ Request](#-request)
-      * [🤖 Response](#-response)
-    * [❓ `POST /ask/` — **Ask a question about a document**](#-post-ask--ask-a-question-about-a-document)
-      * [🤖 Response](#-response-1)
 <!-- TOC -->
 
 ## ⚡ Features
@@ -78,6 +73,19 @@ DATABASE_HOST=localhost
 DATABASE_PORT=5432
 ```
 
+### 4. Run `llama3.2` locally using [Ollama](https://ollama.com/))
+
+```bash
+ollama run llama3.2
+```
+
+### 5. Run PostgreSQL and perform migrations`
+
+```bash
+docker compose up -d
+alembic upgrade head
+```
+
 ## Run application
 
 ### Development mode
@@ -90,62 +98,4 @@ uv run fastapi dev app/main.py
 
 ```bash
 uv run fastapi run app/main.py
-```
-
-### 3. Run ollama locally using `llama3.2`
-
-```bash
-ollama run llama3.2
-```
-
-## 🔌 API Endpoints
-
-### 📄 `POST /upload/` — **Summarize a document**
-
-Uploads a PDF or DOCX file and returns a summarized version of its contents using a local LLM via Ollama.
-
-#### ✅ Request
-
-- **Method:** `POST`
-- **URL:** `/upload/`
-- **Content-Type:** `multipart/form-data`
-- **Form Fields:**
-    - `file`: PDF or DOCX file
-
-#### 🤖 Response
-
-```json
-{
-  "summary": "This document is about..."
-}
-```
-
-### ❓ `POST /ask/` — **Ask a question about a document**
-
-Uploads a PDF or DOCX file along with a natural language question. The local LLM will generate an answer based on the
-file’s contents.
-
-✅ Request
-
-- **Method:** `POST`
-- **URL:** `/ask/`
-- **Content-Type:** `multipart/form-data`
-- **Form Fields:**
-    - `file`: PDF or DOCX file
-    - `question`: Your question as plain text
-
-#### 🤖 Response
-
-```bash
-{
-  "answer": "The document describes..."
-}
-```
-
-🧪 Example cURL
-
-```bash
-curl -X POST http://localhost:8000/ask/ \
-  -F "file=@your_file.docx" \
-  -F "question=What is the main idea of this document?"
 ```
