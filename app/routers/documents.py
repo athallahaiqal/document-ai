@@ -31,7 +31,7 @@ class SummaryOutput(BaseModel):
 async def upload_document(
     db: Session = Depends(database.get_db), file: UploadFile = File(...)
 ):
-    """Upload a document and summarise it.
+    """Upload a document.
 
     :param db: Database session
     :param file: The file to be uploaded
