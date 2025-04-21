@@ -20,20 +20,22 @@ future iterations to support larger document sets and improve accuracy at scale.
 
 
 <!-- TOC -->
+
 * [📄 document-ai](#-document-ai)
-  * [What this is (and isn't)](#what-this-is-and-isnt)
-  * [⚡ Features](#-features)
-  * [🚀 Quick Start](#-quick-start)
-    * [1. Install Python 3, uv, Docker and Ollama](#1-install-python-3-uv-docker-and-ollama)
-    * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
-    * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
-    * [4. Run a LLM locally using Ollama](#4-run-a-llm-locally-using-ollama)
-    * [5. Run PostgreSQL using Docker and perform migrations](#5-run-postgresql-using-docker-and-perform-migrations)
-  * [Run application](#run-application)
-    * [Development mode](#development-mode)
-    * [Production mode](#production-mode)
-  * [Linting](#linting)
-  * [Formatting](#formatting)
+    * [What this is (and isn't)](#what-this-is-and-isnt)
+    * [⚡ Features](#-features)
+    * [🚀 Quick Start](#-quick-start)
+        * [1. Install Python 3, uv, Docker and Ollama](#1-install-python-3-uv-docker-and-ollama)
+        * [2. Create a virtual environment with all necessary dependencies](#2-create-a-virtual-environment-with-all-necessary-dependencies)
+        * [3. Create a `.env` file at the root of the project](#3-create-a-env-file-at-the-root-of-the-project)
+        * [4. Run a LLM locally using Ollama](#4-run-a-llm-locally-using-ollama)
+        * [5. Run PostgreSQL using Docker and perform migrations](#5-run-postgresql-using-docker-and-perform-migrations)
+    * [Run application](#run-application)
+        * [Development mode](#development-mode)
+        * [Production mode](#production-mode)
+    * [Linting](#linting)
+    * [Formatting](#formatting)
+
 <!-- TOC -->
 
 ## ⚡ Features
@@ -85,12 +87,16 @@ DATABASE_HOST=localhost
 DATABASE_PORT=5432
 ```
 
-### 4. Run a LLM locally using [Ollama](https://ollama.com/)
+### 4. Store models locally using [Ollama](https://ollama.com/)
 
-Use the LLM you referenced as an environment variable above. Example using `llama3.2`:
+Use the generation and embeddings models you referenced as environment variables above.
+
+Example using [llama3.2](https://ollama.com/library/llama3.2)
+and [nomic-embed-text](https://ollama.com/library/nomic-embed-text):
 
 ```bash
-ollama run llama3.2
+ollama pull llama3.2 
+ollama pull nomic-embed-text
 ```
 
 ### 5. Run [PostgreSQL using Docker](https://hub.docker.com/_/postgres) and perform migrations
