@@ -4,8 +4,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    # Ollama
-    model_name: str
+    # Models
+    generation_model_name: str
+    embeddings_model_name: str
+    embeddings_dimensions: int
 
     # Database
     database_user: str

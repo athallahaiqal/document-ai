@@ -72,8 +72,10 @@ uv sync
 ### 3. Create a `.env` file at the root of the project
 
 ```dotenv
-# Ollama, example using llama3.2
-MODEL_NAME=llama3.2
+# Models
+GENERATION_MODEL_NAME=llama3.2
+EMBEDDING_MODEL_NAME=nomic-embed-text
+EMBEDDING_DIMENSIONS=768
 
 # Database
 DATABASE_USER=postgres

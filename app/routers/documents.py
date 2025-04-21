@@ -95,7 +95,7 @@ async def ask_question(
 
         # Answer the question based on the document
         answer = answer_question(
-            settings.model_name, ask_question_input.question, document.text_content
+            settings.generation_model_name, ask_question_input.question, document.text_content
         )
         return AskQuestionOutput(answer=answer)
 
@@ -130,7 +130,7 @@ async def summarise(
             )
 
         # Summarize the document
-        summary = summarize_text(settings.model_name, document.text_content)
+        summary = summarize_text(settings.generation_model_name, document.text_content)
         return SummaryOutput(summary=summary)
 
     except Exception as e:
