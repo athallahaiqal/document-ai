@@ -1,4 +1,4 @@
-import ollama
+from langchain_ollama import ChatOllama
 
 
 def answer_question(model_name: str, question: str, document_text: str) -> str:
@@ -9,11 +9,10 @@ def answer_question(model_name: str, question: str, document_text: str) -> str:
     :param document_text: Document text
     :return:
     """
+    llm = ChatOllama(model=model_name)
     prompt = f"Answer the following question based on the document: {document_text}\n\nQuestion: {question}\nAnswer:"
-    response = ollama.chat(
-        model=model_name, messages=[{"role": "user", "content": prompt}]
-    )
-    return response.message.content
+    response = llm.invoke(prompt)
+    return response.content
 
 
 def summarize_text(model_name: str, text: str) -> str:
@@ -22,8 +21,8 @@ def summarize_text(model_name: str, text: str) -> str:
     :param text: The text to summarise
     :return:
     """
+    llm = ChatOllama(model=model_name)
     prompt = f"Summarize the following text:\n\n{text}"
-    response = ollama.chat(
-        model=model_name, messages=[{"role": "user", "content": prompt}]
-    )
-    return response.message.content
+    response = llm.invoke(prompt)
+
+    return response.content
