@@ -45,6 +45,7 @@ future iterations to support larger document sets and improve accuracy at scale.
 - 🔧 Easily swappable LLM backend (via [Ollama](https://ollama.com/))
 - 🛠️ **Database integration** with [SQLAlchemy](https://www.sqlalchemy.org/)
   and [Alembic](https://alembic.sqlalchemy.org/) for migrations
+- 🧠 **LangChain** integration for chaining LLMs and handling complex document workflows
 - 🧹 **Code linting and formatting** with [Ruff](https://docs.astral.sh/ruff/)
 
 ---
