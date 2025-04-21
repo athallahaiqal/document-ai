@@ -74,8 +74,8 @@ uv sync
 ```dotenv
 # Models
 GENERATION_MODEL_NAME=llama3.2
-EMBEDDING_MODEL_NAME=nomic-embed-text
-EMBEDDING_DIMENSIONS=768
+EMBEDDINGS_MODEL_NAME=nomic-embed-text
+EMBEDDINGS_DIMENSIONS=768
 
 # Database
 DATABASE_USER=postgres
